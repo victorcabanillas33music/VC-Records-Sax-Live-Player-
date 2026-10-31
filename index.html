@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111111">
+<title>VC Records | Sax Live Player</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#0c0c0f;--panel:#17171c;--panel2:#202027;--gold:#d7ad55;--gold2:#f2d18a;--muted:#9a9aa5;--line:#34343d;--red:#b93d42;--blue:#168eaa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -20%,#29231a 0,#101014 38%,#09090b 100%);color:#f5f2eb;font-family:Inter,Segoe UI,Arial,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 22px;border-bottom:1px solid #37312a;background:#111114;position:sticky;top:0;z-index:3}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:43px;height:43px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold);font-weight:900;font-size:20px}.brand h1{font-size:18px;margin:0;letter-spacing:1px}.brand small{color:var(--muted);font-size:10px;letter-spacing:2px}
+.header-right{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.pill{border:1px solid #51432b;color:var(--gold2);border-radius:20px;padding:7px 11px;font-size:12px}
+button,.btn{border:1px solid #65502d;background:linear-gradient(180deg,#3a3020,#211c16);color:#f6dfaa;padding:10px 13px;border-radius:8px;cursor:pointer;font-weight:650}button:hover,.btn:hover{filter:brightness(1.2)}button.secondary{background:#24242b;border-color:#41414b;color:#eee}button.red{background:#812c32;border-color:#a74b4f;color:white}button.blue{background:#126b80;border-color:#218ca3;color:white}
+main{max-width:1500px;margin:auto;padding:18px}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}.grid{display:grid;grid-template-columns:minmax(0,1fr) 235px minmax(0,1fr);gap:12px;align-items:stretch}
+.panel{background:linear-gradient(145deg,#1b1b21,#131317);border:1px solid #383840;border-radius:13px;padding:15px;box-shadow:0 10px 30px #0005;min-width:0}.panel-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;color:var(--gold2);font-size:13px;font-weight:800;letter-spacing:.6px}.track-name{font-size:15px;font-weight:700;margin:5px 0;color:#fff}.file-label{display:inline-block;font-size:12px;color:#ddd;background:#292930;padding:8px 10px;border-radius:7px;cursor:pointer;border:1px solid #45454f}.file-label input{display:none}.track-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin:8px 0}.wave{height:66px;border:1px solid #3c3c44;border-radius:8px;background:repeating-linear-gradient(90deg,#28282f 0 3px,#16161b 3px 8px);display:flex;align-items:center;justify-content:space-around;overflow:hidden;margin:10px 0}.wave i{display:block;width:3px;border-radius:4px;background:linear-gradient(var(--gold),#8a6c37);opacity:.85}.controls{display:flex;gap:7px;margin-top:12px}.controls button{flex:1}.play{font-size:15px;padding:13px}.range-row{display:flex;align-items:center;gap:10px;margin:12px 0;color:#bbb;font-size:12px}.range-row input{flex:1;accent-color:var(--gold)}.range-row b{color:var(--gold2);min-width:35px;text-align:right}.selectrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:13px;color:#bbb;font-size:12px}select,input[type=text]{background:#111116;color:#eee;border:1px solid #454550;border-radius:7px;padding:9px}
+.mixer{text-align:center}.mixer .panel-title{justify-content:center}.mixer-body{display:flex;justify-content:space-around;gap:10px;height:190px;align-items:center}.fader{height:145px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;color:#bbb;font-size:11px}.fader input{writing-mode:vertical-lr;direction:rtl;appearance:slider-vertical;width:24px;height:112px;accent-color:var(--gold)}.meter{height:115px;width:22px;border:1px solid #555;border-radius:5px;background:#09090b;display:flex;align-items:end;padding:3px}.meter span{width:100%;height:70%;background:linear-gradient(to top,#1c9b67,#d7b542,#bd433d);border-radius:2px}.cross{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}.cross input{width:100%;accent-color:var(--gold)}.cross small{color:var(--muted)}
+.lower{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin-top:14px}.chordline{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#0d0d11;border:1px solid #36363f;border-radius:9px;padding:13px;margin-top:10px}.chord{background:#26242a;border:1px solid #51432c;padding:12px 16px;border-radius:7px;text-align:center;min-width:85px}.chord strong{display:block;color:var(--gold2);font-size:18px}.chord small{color:#aaa}.arrow{color:#777}.note{color:var(--muted);font-size:11px;line-height:1.5}.setlist{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.song{background:#24242b;border:1px solid #444;border-radius:8px;padding:9px 11px;font-size:12px}.song strong{color:var(--gold2)}.formrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.formrow input{flex:1;min-width:120px}.footer{text-align:center;color:#777;font-size:11px;padding:22px 5px}.status{font-size:11px;color:#83d5ad}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.mixer-body{height:130px}.fader{height:120px}.fader input{height:90px}.lower{grid-template-columns:1fr}header{position:static}.header-right{justify-content:flex-end}}
+@media(max-width:520px){main{padding:10px}.panel{padding:12px}header{padding:12px}.brand h1{font-size:15px}.pill{display:none}.topline{align-items:flex-start;flex-direction:column}.controls{flex-wrap:wrap}.controls button{min-width:28%}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">VC</div><div><h1>VC RECORDS · SAX LIVE PLAYER</h1><small>VICTOR CABANILLAS · PRODUCCIONES MUSICALES</small></div></div><div class="header-right"><span class="pill">● AUDIO LOCAL</span><span class="pill">LIVE PERFORMANCE</span><button onclick="document.getElementById('help').scrollIntoView({behavior:'smooth'})">GUÍA RÁPIDA</button></div></header>
+<main>
+<div class="topline"><div><div class="eyebrow">Consola de acompañamiento en vivo</div><div style="font-size:20px;font-weight:800;margin-top:4px">Reproductor de doble pista</div></div><div class="status" id="status">● Sistema listo · carga tus pistas MP3/WAV</div></div>
+<section class="grid">
+  <div class="panel" id="deckA">
+    <div class="panel-title"><span>🅰 PISTA / BACKING TRACK A</span><label class="file-label">＋ Cargar audio<input id="fileA" type="file" accept="audio/*"></label></div>
+    <div class="track-name" id="nameA">Pista A — sin archivo</div><div class="track-meta"><span id="timeA">00:00 / 00:00</span><span>DECK A</span></div>
+    <div class="wave" id="waveA"></div>
+    <div class="range-row"><span>VOLUMEN</span><input id="volA" type="range" min="0" max="1" step=".01" value=".85"><b id="volATxt">85%</b></div>
+    <div class="controls"><button class="secondary" onclick="seek('A',-10)">↶ 10s</button><button class="play red" onclick="togglePlay('A')">▶ PLAY A</button><button class="secondary" onclick="stopTrack('A')">■ STOP</button></div>
+    <div class="range-row"><span>VELOCIDAD</span><input id="rateA" type="range" min=".75" max="1.25" step=".01" value="1"><b id="rateATxt">100%</b></div>
+  </div>
+  <div class="panel mixer">
+    <div class="panel-title">🎚 MEZCLADOR</div>
+    <div class="mixer-body">
+      <div class="fader"><span>VOL A</span><input id="mixA" type="range" min="0" max="1" step=".01" value=".85"><span id="mixATxt">85%</span></div>
+      <div class="fader"><span>MASTER</span><div class="meter"><span id="meter"></span></div><span id="masterTxt">90%</span></div>
+      <div class="fader"><span>VOL B</span><input id="mixB" type="range" min="0" max="1" step=".01" value=".85"><span id="mixBTxt">85%</span></div>
+    </div>
+    <div class="cross"><div style="display:flex;justify-content:space-between;font-size:11px;color:#aaa"><span>A</span><b>CROSSFADER</b><span>B</span></div><input id="cross" type="range" min="0" max="1" step=".01" value=".5"><small>Desliza para dar prioridad a A o B</small></div>
+    <div class="range-row"><span>MASTER OUT</span><input id="master" type="range" min="0" max="1" step=".01" value=".9"><b id="masterLabel">90%</b></div>
+    <button class="secondary" style="width:100%" onclick="playBoth()">▶ REPRODUCIR A + B</button>
+  </div>
+  <div class="panel" id="deckB">
+    <div class="panel-title"><span>🅱 PISTA / BACKING TRACK B</span><label class="file-label">＋ Cargar audio<input id="fileB" type="file" accept="audio/*"></label></div>
+    <div class="track-name" id="nameB">Pista B — sin archivo</div><div class="track-meta"><span id="timeB">00:00 / 00:00</span><span>DECK B</span></div>
+    <div class="wave" id="waveB"></div>
+    <div class="range-row"><span>VOLUMEN</span><input id="volB" type="range" min="0" max="1" step=".01" value=".85"><b id="volBTxt">85%</b></div>
+    <div class="controls"><button class="secondary" onclick="seek('B',-10)">↶ 10s</button><button class="play blue" onclick="togglePlay('B')">▶ PLAY B</button><button class="secondary" onclick="stopTrack('B')">■ STOP</button></div>
+    <div class="range-row"><span>VELOCIDAD</span><input id="rateB" type="range" min=".75" max="1.25" step=".01" value="1"><b id="rateBTxt">100%</b></div>
+  </div>
+</section>
+<section class="lower">
+ <div class="panel">
+  <div class="panel-title">♬ CIFRADO Y TRANSPOSICIÓN PARA SAXOFÓN</div>
+  <div class="selectrow">Instrumento <select id="instrument"><option value="9">Saxofón alto (Mi♭) · escrito +9 semitonos</option><option value="2">Saxofón tenor (Si♭) · escrito +2 semitonos</option><option value="0">Tono de concierto</option></select>
+  Tono base <select id="key"><option>C</option><option>Db</option><option>D</option><option>Eb</option><option>E</option><option>F</option><option>Gb</option><option>G</option><option>Ab</option><option>A</option><option>Bb</option><option>B</option></select></div>
+  <div class="formrow"><input id="chords" type="text" value="Am7 - Dm7 - G7 - Cmaj7" aria-label="Progresión de acordes"><button onclick="renderChords()">ACTUALIZAR CIFRADO</button></div>
+  <div class="chordline" id="chordline"></div>
+  <p class="note">El cifrado se transpone para lectura del instrumento. Esta función cambia los nombres de los acordes mostrados; no modifica la afinación del archivo de audio.</p>
+ </div>
+ <div class="panel">
+  <div class="panel-title">♥ SETLIST DE EVENTOS</div>
+  <div class="selectrow">Tipo de evento <select id="eventType"><option>Boda</option><option>Cocktail / Recepción</option><option>Cumpleaños</option><option>Bautizo</option><option>Restaurante / Lounge</option><option>Evento corporativo</option></select></div>
+  <div class="formrow"><input id="songTitle" type="text" placeholder="Nombre de canción"><input id="songKey" type="text" placeholder="Tono (ej. Bb)" style="max-width:90px"><button onclick="addSong()">＋ AGREGAR</button></div>
+  <div class="setlist" id="setlist"></div>
+  <div class="formrow"><button class="secondary" onclick="saveSetlist()">GUARDAR SETLIST</button><button class="secondary" onclick="clearSetlist()">LIMPIAR</button></div>
+  <p class="note">Tu lista se guarda en este navegador. Puedes crear una lista distinta para cada evento.</p>
+ </div>
+</section>
+<section class="panel" id="help" style="margin-top:14px">
+ <div class="panel-title">⚙ GUÍA RÁPIDA · VC PRODUCCIONES</div>
+ <div class="note">1. Pulsa “Cargar audio” en A o B y selecciona tus pistas de acompañamiento.<br>2. Ajusta volúmenes, velocidad y crossfader según tu presentación.<br>3. Usa el cifrado para visualizar los acordes transpuestos para saxofón alto o tenor.<br>4. Añade canciones al setlist y guárdalo antes de tu evento.<br><br><b style="color:var(--gold2)">Importante:</b> para sonido profesional conecta tu computadora o celular a una interfaz de audio o mezcladora. Prueba los niveles antes de tocar en vivo. La velocidad modifica también la afinación del audio; no es una transposición independiente.</div>
+</section>
+<div class="footer">VC RECORDS · SAX LIVE PLAYER · VICTOR CABANILLAS<br>WhatsApp: +51 968 106 975 · Lima, Perú</div>
+</main>
+<script>
+const tracks={A:new Audio(),B:new Audio()};
+const $=id=>document.getElementById(id);
+function fmt(s){if(!isFinite(s))return"00:00";let m=Math.floor(s/60),r=Math.floor(s%60);return String(m).padStart(2,'0')+":"+String(r).padStart(2,'0')}
+function setStatus(t){$('status').textContent='● '+t}
+function loadDeck(k,file){let a=tracks[k];a.src=URL.createObjectURL(file);a.load();$('name'+k).textContent=file.name;$('time'+k).textContent='00:00 / --:--';setStatus('Audio cargado en pista '+k)}
+['A','B'].forEach(k=>{
+ $('file'+k).addEventListener('change',e=>{if(e.target.files[0])loadDeck(k,e.target.files[0])});
+ $('vol'+k).addEventListener('input',e=>{$('vol'+k+'Txt').textContent=Math.round(e.target.value*100)+'%';syncVolume(k)});
+ $('mix'+k).addEventListener('input',e=>{$('mix'+k+'Txt').textContent=Math.round(e.target.value*100)+'%';syncVolume(k)});
+ $('rate'+k).addEventListener('input',e=>{tracks[k].playbackRate=+e.target.value;$('rate'+k+'Txt').textContent=Math.round(e.target.value*100)+'%'});
+ tracks[k].addEventListener('timeupdate',()=>{$('time'+k).textContent=fmt(tracks[k].currentTime)+' / '+fmt(tracks[k].duration)});
+ tracks[k].addEventListener('ended',()=>setStatus('Pista '+k+' finalizada'));
+});
+function syncVolume(k){let cross=+$('cross').value,master=+$('master').value;let c=k==='A'?Math.cos(cross*Math.PI/2):Math.sin(cross*Math.PI/2);tracks[k].volume=Math.min(1,+$('vol'+k).value*+$('mix'+k).value*master*c)}
+$('cross').addEventListener('input',()=>{syncVolume('A');syncVolume('B')});
+$('master').addEventListener('input',()=>{ $('masterLabel').textContent=Math.round($('master').value*100)+'%';$('masterTxt').textContent=Math.round($('master').value*100)+'%';syncVolume('A');syncVolume('B')});
+function togglePlay(k){if(!tracks[k].src){setStatus('Primero carga un audio en la pista '+k);return}if(tracks[k].paused){tracks[k].play();setStatus('Reproduciendo pista '+k)}else{tracks[k].pause();setStatus('Pista '+k+' en pausa')}}
+function stopTrack(k){tracks[k].pause();tracks[k].currentTime=0;setStatus('Pista '+k+' detenida')}
+function seek(k,n){if(tracks[k].src)tracks[k].currentTime=Math.max(0,tracks[k].currentTime+n)}
+function playBoth(){['A','B'].forEach(k=>{if(tracks[k].src)tracks[k].play()});setStatus('Reproduciendo pistas disponibles')}
+function drawWaves(){['A','B'].forEach(k=>{let w=$('wave'+k);for(let i=0;i<58;i++){let x=document.createElement('i');x.style.height=(12+Math.abs(Math.sin(i*2.13)*Math.cos(i*.43))*43)+'px';w.appendChild(x)}})}drawWaves();
+const notes=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const aliases={'Db':'C#','Eb':'D#','Gb':'F#','Ab':'G#','Bb':'A#'};
+function transposeChord(ch,n){let m=ch.match(/^([A-G](?:#|b)?)(.*)$/);if(!m)return ch;let root=aliases[m[1]]||m[1],idx=notes.indexOf(root);if(idx<0)return ch;let out=notes[(idx+n+120)%12];let preferFlat=['F','Bb','Eb','Ab','Db','Gb'].includes($('key').value);if(preferFlat){out={'A#':'Bb','D#':'Eb','G#':'Ab','C#':'Db','F#':'Gb'}[out]||out}return out+m[2]}
+function renderChords(){let n=+$('instrument').value,raw=$('chords').value.split(/[\s,]+/).filter(Boolean);$('chordline').innerHTML='';raw.forEach((c,i)=>{let d=document.createElement('div');d.className='chord';d.innerHTML='<small>'+c+'</small><strong>'+transposeChord(c,n)+'</strong>'; $('chordline').appendChild(d);if(i<raw.length-1){let a=document.createElement('span');a.className='arrow';a.textContent='›';$('chordline').appendChild(a)}})}
+$('instrument').addEventListener('change',renderChords);$('key').addEventListener('change',renderChords);renderChords();
+let songs=[];
+function drawSetlist(){$('setlist').innerHTML='';songs.forEach((s,i)=>{let d=document.createElement('div');d.className='song';d.innerHTML='<strong>'+s.title.replace(/[<>]/g,'')+'</strong> · '+s.key+' <span style="color:#999">×</span>';d.title='Pulsa para quitar';d.onclick=()=>{songs.splice(i,1);drawSetlist()};$('setlist').appendChild(d)})}
+function addSong(){let title=$('songTitle').value.trim();if(!title)return; songs.push({title,key:$('songKey').value.trim()||'—'});$('songTitle').value='';$('songKey').value='';drawSetlist()}
+function saveSetlist(){let data={event:$('eventType').value,songs};localStorage.setItem('vcSetlist_'+data.event,JSON.stringify(data));setStatus('Setlist guardado: '+data.event)}
+$('eventType').addEventListener('change',()=>{let d=JSON.parse(localStorage.getItem('vcSetlist_'+$('eventType').value)||'null');songs=d?.songs||[];drawSetlist()});
+function clearSetlist(){songs=[];drawSetlist()}
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
